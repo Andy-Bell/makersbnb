@@ -3,9 +3,9 @@ extends ../layout
 block content
   h1(class="title") List a Space
   form#formAddSpace(name='addspace', method='post', action='/spaces/new')
-    input#inputSpaceName(type='text', placeholder='space name', name='spacename')
-    input#inputDescription(type='text', placeholder='description', name='description')
-    input#inputPricePerNight(type='text', placeholder='price', name='price_per_night')
-    input#inputAvailableFrom(type='text', placeholder='from', name='available_from')
-    input#inputAvailableTo(type='text', placeholder='to', name='available_to')
+    input#inputSpaceName(type='text', placeholder='space name', name='spacename' required)
+    input#inputDescription(type='text', placeholder='description', name='description' required)
+    input#inputPricePerNight(type='number', min='0', placeholder='price', name='price_per_night' required)
+    input#inputAvailableFrom(type='text', placeholder='from', name='available_from' required)
+    input#inputAvailableTo(type='text', placeholder='to', name='available_to' required)
     button#btnSubmit(type='submit') List my Space

@@ -2,6 +2,7 @@ process.env.NODE_ENV = 'test';
 const Browser = require('zombie');
 const app = require('../app');
 const http = require('http');
+var assert = require('assert');
 
 describe("Sign Up Functionality", function(){
 
@@ -36,9 +37,9 @@ describe("Sign Up Functionality", function(){
 
     before(function(done){
       this.browser
-        .fill('email', 'test@test.com')
-        .fill('fullName', 'Test')
         .fill('username', 'tester')
+        .fill('fullName', 'Test')
+        .fill('email', 'test@test.com')
         .pressButton('submit', done);
     });
 
@@ -51,8 +52,6 @@ describe("Sign Up Functionality", function(){
       this.browser.assert.text('#fullName', 'Test');
       this.browser.assert.text('#username', 'tester');
     });
-
-
   });
 
 
