@@ -1,10 +1,10 @@
-  extends ../layout
+extends ../layout
 
-  block content
-    h1 Login
-    form(action='/sendtoken', method='POST')
-      | Email:
-      br
-      input(name='user', type='text')
-      br
-      input(type='submit', value='Login')
+block content
+  h1 Login
+  form(action='/users/sendtoken', method='POST')
+    | Email:
+    br
+    input(name='user', type='text')
+    br
+    input(type='submit', value='Login')

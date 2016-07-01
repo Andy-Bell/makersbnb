@@ -7,6 +7,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+
+var config = require
 var passwordless = require('passwordless');
 var MongoStore = require('passwordless-mongostore');
 var email = require('emailjs');
@@ -24,8 +26,18 @@ var app = express();
 app.use(session({
   secret: 'secret',
   resave: false,
-  saveUnitialized: true
-}))
+  saveUnitialized: true,
+  // store: new MongoStore({ db: process.env.MONGODB_DATABASE || 'passwordless-simple-mail',
+  //                         host: process.env.MONGODB_HOST || '127.0.0.1',
+  //                         port: process.env.MONGODB_PORT || 27017,
+  //                         username: process.env.MONGODB_USERNAME || '',
+  //                         password: process.env.MONGODB_PASSWORD || ''
+  // })
+}));
+
+var yourEmail = 'makersbnb2016@gmail.com';
+var yourPwd = 'makersbnb123';
+var yourSmtp = 'smtp.gmail.com';
 
 var smtpServer = email.server.connect({
   user: yourEmail,
@@ -36,8 +48,6 @@ var smtpServer = email.server.connect({
 
 var pathToMongoDb = 'mongodb://localhost/passwordless-simple-mail';
 passwordless.init(new MongoStore(pathToMongoDb));
-
-// var host = 'http://localhost:3000/';
 
 passwordless.addDelivery(
     function(tokenToSend, uidToSend, recipient, callback) {

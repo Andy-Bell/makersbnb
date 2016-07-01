@@ -42,20 +42,26 @@ router.post('/new', function(req, res) {
 
 /* GET login screen. */
 router.get('/login', function(req, res) {
-   res.render('login');
+   res.render('users/login');
+});
+
+/* GET logout. */
+router.get('/logout', passwordless.logout(),
+	function(req, res) {
+  res.redirect('/');
 });
 
 /* POST login details. */
 router.post('/sendtoken',
     passwordless.requestToken(
         // Turn the email address into an user ID
-        function(user, delivery, callback, req) {
+        function(user, delivery, callback) {
             // usually you would want something like:
           callback(null, user);
         }),
     function(req, res) {
        // success!
-          res.render('sent');
+          res.render('users/sent');
 });
 
 
