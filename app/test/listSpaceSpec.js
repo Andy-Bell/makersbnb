@@ -7,6 +7,7 @@ const app = require('../app');
 describe('Listing Spaces', function() {
 
   before(function(done) {
+    this.timeout(15000);
     this.server = http.createServer(app).listen(3000);
     this.browser = new Browser({site: 'http://localhost:3000'});
     this.browser.visit('/spaces/new', done);
