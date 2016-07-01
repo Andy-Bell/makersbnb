@@ -1,5 +1,19 @@
 extends ../layout
 
+link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/ui-darkness/jquery-ui.css')
+script(src='//code.jquery.com/jquery-3.0.0.min.js')
+script(src='//code.jquery.com/ui/1.11.4/jquery-ui.min.js')
+script.
+  $(function() {
+  $("#datepickerFrom").datepicker({
+    minDate: 0
+
+  });
+  $("#datepickerTo").datepicker({
+    minDate: 0
+  });
+  });
+
 block content
   h1(class="title") List a Space
   form#formAddSpace(name='addspace', method='post', action='/spaces/new')

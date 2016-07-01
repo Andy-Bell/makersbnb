@@ -9,8 +9,8 @@ users.index('username', {unique: true});
 router.get('/', function(req, res, next) {
   var data = users.find({});
   data.on('success', function(docs){
-    res.render('users/index', { 
-      title: 'Welcome', 
+    res.render('users/index', {
+      title: 'Welcome',
       data: docs.pop()
       });
   });
