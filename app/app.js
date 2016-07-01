@@ -6,7 +6,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var session = require('express-session');
+var passwordless = require('passwordless');
+var MongoStore = require('passwordless-mongostore');
+var email = require('emailjs');
 
 var mongo = require('mongodb');
 var monk = require('monk');
@@ -17,6 +20,42 @@ var users = require('./routes/users');
 var spaces = require('./routes/spaces');
 
 var app = express();
+
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUnitialized: true
+}))
+
+var smtpServer = email.server.connect({
+  user: yourEmail,
+  password: yourPwd,
+  host: yourSmtp,
+  ssl: true
+});
+
+var pathToMongoDb = 'mongodb://localhost/passwordless-simple-mail';
+passwordless.init(new MongoStore(pathToMongoDb));
+
+// var host = 'http://localhost:3000/';
+
+passwordless.addDelivery(
+    function(tokenToSend, uidToSend, recipient, callback) {
+        var host = 'localhost:3000';
+        smtpServer.send({
+            text:    'Hello!\nAccess your account here: http://'
+            + host + '?token=' + tokenToSend + '&uid='
+            + encodeURIComponent(uidToSend),
+            from:    yourEmail,
+            to:      recipient,
+            subject: 'Token for ' + host
+        }, function(err, message) {
+            if(err) {
+                console.log(err);
+            }
+            callback(err);
+        });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -29,6 +68,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(passwordless.sessionSupport());
+app.use(passwordless.acceptToken({ successRedirect: '/'}));
 
 app.use('/', routes);
 app.use('/users', users);
