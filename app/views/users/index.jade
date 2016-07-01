@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1 #{title}
+  section(id='userDetails')
+    p
+      p(id='username') #{data.username}
+      p(id='fullName') #{data.fullName}
+      p(id='email') #{data.email}

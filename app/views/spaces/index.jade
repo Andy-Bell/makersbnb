@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+  h1(class="title") Book a Space
+  ul(id='container')
+    each space, i in spacesList
+      li
+        h4(id='spaceTitle') #{space.spacename}
+        h5(id='spaceDescription') #{space.description}

@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  h1 #{title}
+  #form-head
+    h3 Please enter your details
+  form(action='/users/new', method='post')
+    label(for='username') Username
+      input(type='text', id='username', name='username' required)
+      br
+    label(for='fullName') Name
+      input(type='text', id='fullName', name='fullName' required)
+      br
+    label(for='email') Email
+      input(type='email', id='email', name='email' required)
+      br
+    button(type='submit', id='submit', name='submit', value='submit') Submit
