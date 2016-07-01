@@ -33,12 +33,12 @@ describe('Listing Spaces', function() {
       this.browser.assert.url({ pathname: '/spaces' });
     });
 
-    it('displays the newly entered space title and description', function(){
+    xit('displays the newly entered space title and description', function(){
       this.browser.assert.text('li:nth-child(1)', 'Cozy loft So cozy');
     });
 
     describe('second space', function(){
-      
+
       before(function(done) {
         this.browser.visit('/spaces/new', done);
       });
